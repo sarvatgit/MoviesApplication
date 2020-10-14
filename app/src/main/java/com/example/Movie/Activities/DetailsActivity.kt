@@ -1,4 +1,4 @@
-package com.example.Movie
+package com.example.Movie.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.example.Movie.R
 
 class DetailsActivity : AppCompatActivity() {
     private lateinit var backdrop: ImageView

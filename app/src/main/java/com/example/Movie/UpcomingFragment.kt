@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.Movie.Activities.DetailsActivity
+import com.example.Movie.cache.MoviesDbHelper
+import com.example.Movie.data.Movies
+import com.example.Movie.data.MoviesRepository
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +34,7 @@ class UpcomingFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
     private var upcomingMoviesPage = 1
     private lateinit var upcomingMoviesLayoutMgr: LinearLayoutManager
     //protected lateinit var rootView: View
-    lateinit var moviesDbHelper:MoviesDbHelper
+    lateinit var moviesDbHelper: MoviesDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +76,7 @@ class UpcomingFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
     }
 
     fun onError() {
-        var movs = moviesDbHelper.readAllUsers1()
+        var movs = moviesDbHelper.readAllMovies11()
         upcomingMoviesAdapter.appendMovies(movs)
         Toast.makeText(activity,"error fetching movies. Try again", Toast.LENGTH_SHORT).show()
     }
@@ -97,7 +101,7 @@ class UpcomingFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
                             i.budget,
                             i.genres
                         )
-                        moviesDbHelper.insertUser1(m)
+                        moviesDbHelper.insertMovie1(m)
                     }
                 }
             }

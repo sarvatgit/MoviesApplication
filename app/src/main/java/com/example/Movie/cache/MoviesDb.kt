@@ -1,12 +1,9 @@
-package com.example.Movie
+package com.example.Movie.cache
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-//import com.example.Movie.MoviesDb.Companion.TABLE_NAME
-import com.google.gson.annotations.SerializedName
-
-
+import com.example.Movie.data.Movies
+//import com.example.Movie.cache.MoviesDb.Companion.TABLE_NAME
 
 
 @Entity
@@ -33,12 +30,13 @@ fun List<MoviesDb>.asDomainModel(): List<Movies> {
             overview = it.overview,
             posterPath = it.posterPath,
             backdropPath = it.backdropPath,
-              rating=it.rating,
-        releaseDate = it.releaseDate,
-        adult = it.adult,
-        runtime = it.runtime,
-        origlang=it.origlang,
-        budget = it.budget,
-        genres=it.genres)
+            rating = it.rating,
+            releaseDate = it.releaseDate,
+            adult = it.adult,
+            runtime = it.runtime,
+            origlang = it.origlang,
+            budget = it.budget,
+            genres = it.genres
+        )
     }
 }

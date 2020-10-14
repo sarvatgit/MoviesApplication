@@ -1,8 +1,11 @@
-package com.example.Movie
+package com.example.Movie.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
+import com.example.Movie.MovAdapter
+import com.example.Movie.cache.MoviesDbHelper
+import com.example.Movie.R
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +27,12 @@ class MainActivity : AppCompatActivity() {
         tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
 
 
-        val adapter = MovAdapter(this, supportFragmentManager, tabLayout!!.tabCount,moviesDbHelper)
+        val adapter = MovAdapter(
+            this,
+            supportFragmentManager,
+            tabLayout!!.tabCount,
+            moviesDbHelper
+        )
         viewPager!!.adapter = adapter
         viewPager!!.setOffscreenPageLimit(MovAdapter.NUM_PAGES)
 

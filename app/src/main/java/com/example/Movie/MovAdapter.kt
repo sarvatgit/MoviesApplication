@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.Movie.cache.MoviesDbHelper
 
 class MovAdapter(private val myContext: Context, fm: FragmentManager, internal var totalTabs: Int,var moviesDbHelper: MoviesDbHelper) : FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

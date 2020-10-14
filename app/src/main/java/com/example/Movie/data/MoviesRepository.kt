@@ -1,4 +1,4 @@
-package com.example.Movie
+package com.example.Movie.data
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -24,7 +24,9 @@ object MoviesRepository {
             .cache(myCache)
             .addInterceptor { chain ->
                 var request = chain.request()
-                request = if (hasNetwork(getContext())!!)
+                request = if (hasNetwork(
+                        getContext()
+                    )!!)
                     request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
                 else
                     request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()

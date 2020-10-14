@@ -1,8 +1,6 @@
 package com.example.Movie
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.Movie.MoviesRepository.getPopularMovies
+import com.example.Movie.Activities.DetailsActivity
+import com.example.Movie.cache.MoviesDbHelper
+import com.example.Movie.data.Movies
+import com.example.Movie.data.MoviesRepository.getPopularMovies
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,7 +34,7 @@ class TopFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
      lateinit var popularMoviesAdapter: MoviesAdapter
     private var popularMoviesPage = 1
     private lateinit var popularMoviesLayoutMgr: LinearLayoutManager
-    lateinit var moviesDbHelper:MoviesDbHelper
+    lateinit var moviesDbHelper: MoviesDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +83,7 @@ class TopFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
     }
 
      fun onError() {
-         var movs = moviesDbHelper.readAllUsers()
+         var movs = moviesDbHelper.readAllMovies()
          popularMoviesAdapter.appendMovies(movs)
         Toast.makeText(activity,"error fetching movies. Try again", Toast.LENGTH_SHORT).show()
     }

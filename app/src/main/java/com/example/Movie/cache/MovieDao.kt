@@ -1,4 +1,4 @@
-package com.example.Movie
+package com.example.Movie.cache
 
 import android.content.ContentValues
 import android.content.Context
@@ -7,6 +7,36 @@ import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.example.Movie.MovieModel
+import com.example.Movie.data.Movies
+
+@Dao
+interface MovieDao {
+    @Query("select * from MoviesDb")
+    fun getVideos(): LiveData<List<MoviesDb>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll( movie: List<MoviesDb>)
+}
+@Database(entities = [MoviesDb::class], version = 1)
+abstract class MovDatabase: RoomDatabase() {
+    abstract val movieDao: MovieDao
+}
+
+private lateinit var INSTANCE: MovDatabase
+
+fun getDatabase(context: Context): MovDatabase {
+    synchronized(MovDatabase::class.java) {
+        if (!::INSTANCE.isInitialized) {
+            INSTANCE = Room.databaseBuilder(context.applicationContext,
+                MovDatabase::class.java,
+                "movieslist").build()
+        }
+    }
+    return INSTANCE
+}
 
 class MoviesDbHelper(context: Context?) : SQLiteOpenHelper(context, "MoviesDB.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
@@ -52,7 +82,7 @@ class MoviesDbHelper(context: Context?) : SQLiteOpenHelper(context, "MoviesDB.db
         return true
     }
     @Throws(SQLiteConstraintException::class)
-    fun insertUser1(user: MovieModel): Boolean {
+    fun insertMovie1(user: MovieModel): Boolean {
         // Gets the data repository in write mode
         val db = writableDatabase
 
@@ -80,7 +110,7 @@ class MoviesDbHelper(context: Context?) : SQLiteOpenHelper(context, "MoviesDB.db
 
 
 
-    fun readAllUsers(): ArrayList<Movies> {
+    fun readAllMovies(): ArrayList<Movies> {
         val users = ArrayList<Movies>()
         val db = writableDatabase
         var cursor: Cursor? = null
@@ -123,13 +153,28 @@ class MoviesDbHelper(context: Context?) : SQLiteOpenHelper(context, "MoviesDB.db
 
 
 
-                users.add(Movies(id.toLong(), title,overview,posterPath ,backdropPath,rating.toFloat(),releaseDate,adult,runtime.toLong(),origlang,budget,genres))
+                users.add(
+                    Movies(
+                        id.toLong(),
+                        title,
+                        overview,
+                        posterPath,
+                        backdropPath,
+                        rating.toFloat(),
+                        releaseDate,
+                        adult,
+                        runtime.toLong(),
+                        origlang,
+                        budget,
+                        genres
+                    )
+                )
                 cursor.moveToNext()
             }
         }
         return users
     }
-    fun readAllUsers1(): ArrayList<Movies> {
+    fun readAllMovies11(): ArrayList<Movies> {
         val users = ArrayList<Movies>()
         val db = writableDatabase
         var cursor: Cursor? = null
@@ -175,7 +220,22 @@ class MoviesDbHelper(context: Context?) : SQLiteOpenHelper(context, "MoviesDB.db
 
 
 
-                users.add(Movies(id.toLong(), title,overview,posterPath ,backdropPath,rating.toFloat(),releaseDate,adult,runtime.toLong(),origlang,budget,genres))
+                users.add(
+                    Movies(
+                        id.toLong(),
+                        title,
+                        overview,
+                        posterPath,
+                        backdropPath,
+                        rating.toFloat(),
+                        releaseDate,
+                        adult,
+                        runtime.toLong(),
+                        origlang,
+                        budget,
+                        genres
+                    )
+                )
                 cursor.moveToNext()
             }
         }
