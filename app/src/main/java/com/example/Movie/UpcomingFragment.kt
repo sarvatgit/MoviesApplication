@@ -24,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BlankFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class UpcomingFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
+class UpcomingFragment(private  var moviesDbHelper: MoviesDbHelper) : Fragment() {
     // TODO: Rename and change types of parameters
     //private var param1: String? = null
     //private var param2: String? = null
@@ -34,14 +34,11 @@ class UpcomingFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
     private var upcomingMoviesPage = 1
     private lateinit var upcomingMoviesLayoutMgr: LinearLayoutManager
     //protected lateinit var rootView: View
-    lateinit var moviesDbHelper: MoviesDbHelper
+   // lateinit var moviesDbHelper: MoviesDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moviesDbHelper= MoviesDbHelper(context)
-//        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//
-//        val networkInfo = connMgr.activeNetworkInfo
+
 
     }
     override fun onCreateView(inflater: LayoutInflater,
@@ -78,7 +75,7 @@ class UpcomingFragment(moviesDbHelper: MoviesDbHelper) : Fragment() {
     fun onError() {
         var movs = moviesDbHelper.readAllMovies11()
         upcomingMoviesAdapter.appendMovies(movs)
-        Toast.makeText(activity,"error fetching movies. Try again", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity,"Error fetching.Please wait", Toast.LENGTH_SHORT).show()
     }
     fun onUpcomingMoviesFetched(movies: List<Movies>) {
         //Toast.makeText(activity,"got movies", Toast.LENGTH_SHORT).show()
